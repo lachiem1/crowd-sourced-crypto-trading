@@ -1,19 +1,15 @@
 package com.lachiem1.userservice.repository
 
-import com.lachiem1.userservice.model.UserClient
-import com.lachiem1.userservice.model.UserServer
-import java.util.UUID
+import com.lachiem1.userservice.domain.user.UserClient
+import com.lachiem1.userservice.domain.user.UserRepositoryResult
+import com.lachiem1.userservice.domain.user.UserServer
 
-class UserRepository {
-    fun getSample(): UserServer = UserServer(
-        id = "1234",
-        username = "lachiem1",
-        email = "lachiem1@lachiem1.com"
-    )
-
-    fun create(request: UserClient): UserServer = UserServer(
-        id = UUID.randomUUID().toString(),
-        username = request.username,
-        email = request.email
-    )
+interface UserRepository {
+    suspend fun getAllUsers(): UserRepositoryResult
+    suspend fun getUserById(id: String): UserRepositoryResult
+    suspend fun getUserByUsername(username: String): UserRepositoryResult
+    suspend fun getUserByEmail(email: String): UserRepositoryResult
+    suspend fun createUser(user: UserClient): UserRepositoryResult
+    suspend fun updateUser(user: UserServer): UserRepositoryResult
+    suspend fun deleteUser(id: String): UserRepositoryResult
 }
